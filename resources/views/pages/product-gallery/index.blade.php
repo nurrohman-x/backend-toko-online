@@ -6,7 +6,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="box-title">Daftar Barang</h4>
+                    <h4 class="box-title">Daftar Foto Barang</h4>
                 </div>
                 <div class="card-body--">
                     <div class="table-stats order-table ov-h">
@@ -14,29 +14,23 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
+                                    <th>Nama Barang</th>
+                                    <th>Photo</th>
+                                    <th>Default</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($products as $data)
+                                @foreach($product_galleries as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data->name }}</td>
-                                    <td>{{ $data->type }}</td>
-                                    <td>{{ $data->quantity }}</td>
-                                    <td>{{ $data->price }}</td>
+                                    <td>{{ $data->product->name }}</td>
                                     <td>
-                                        <a href="{{ route('product.show', $data->id) }}" class="btn btn-info btn-sm">
-                                            <i class="fa fa-picture-o"></i>
-                                        </a>
-                                        <a href="{{ route('product.edit', $data->id) }}" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <form action="{{ route('product.destroy', $data->id) }}" method="post" class="d-inline">
+                                        <img src="{{ url($data->photo) }}" alt="">
+                                    </td>
+                                    <td>{{ $data->is_default ? 'Yes' : 'No' }}</td>
+                                    <td>
+                                        <form action="{{ route('product-gallery.destroy', $data->id) }}" method="post" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">

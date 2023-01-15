@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DashController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductGalleryController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +23,10 @@ Auth::routes(
     ['register' => false]
 );
 
-Route::get('/', [DashController::class, 'index'])->middleware('auth')->name('dashboard');
-Route::resource('product', ProductController::class);
+Route::middleware('auth')->group(function () {
+    Route::get('/', [DashController::class, 'index'])->name('dashboard');
+    Route::resource('product', ProductController::class);
+    Route::resource('product-gallery', ProductGalleryController::class)->except(['edit', 'update', 'show']);
+    Route::get('transaction/{id}/set-status', [TransactionController::class, 'setStatus'])->name('transaction.status');
+    Route::resource('transaction', TransactionController::class);
+});
