@@ -10,7 +10,7 @@ class Transaction extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['uuid', 'name', 'email', 'number', 'address', 'tranaction_total', 'transaction_status'];
+    protected $fillable = ['uuid', 'name', 'email', 'number', 'address', 'transaction_total', 'transaction_status'];
     protected $hidden = [];
 
     public function details()
